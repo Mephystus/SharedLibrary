@@ -41,17 +41,17 @@ public class UnhandledExceptionFilter : IAsyncExceptionFilter
         {
             _logger.LogError(exception, "Unhandled exception!");
 
-            var errorResponse = new ErrorResponse
+            var response = new ErrorResponse
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
 
-            errorResponse.Details.Add(new ErrorDetail
+            response.Details.Add(new ErrorDetail
             {
                 Message = "An error occurred, please try again later."
             });
 
-            context.Result = new ObjectResult(errorResponse) 
+            context.Result = new ObjectResult(response) 
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };

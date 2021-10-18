@@ -44,17 +44,17 @@ public class NotFoundExceptionFilter : IAsyncExceptionFilter
         {
             _logger.LogError(notFoundException, "Not found exception!");
 
-            var errorResponse = new ErrorResponse
+            var response = new ErrorResponse
             {
                 StatusCode = StatusCodes.Status404NotFound
             };
 
-            errorResponse.Details.Add(new ErrorDetail
+            response.Details.Add(new ErrorDetail
             {
                 Message = notFoundException.Message
             });
 
-            context.Result = new NotFoundObjectResult(errorResponse);
+            context.Result = new NotFoundObjectResult(response);
             context.ExceptionHandled = true;
         }
 

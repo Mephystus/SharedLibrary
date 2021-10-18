@@ -4,7 +4,7 @@
 //  </copyright>
 // -------------------------------------------------------------------------------------
 
-namespace SharedLibrary.Models.Models.HealthCheck;
+namespace SharedLibrary.Models.HealthCheck;
 
 /// <summary>
 /// Defines the health check detail.
@@ -14,7 +14,7 @@ public class HealthCheckResponse
     /// <summary>
     /// Gets or sets the details.
     /// </summary>
-    public IEnumerable<HealthCheckDetail> Details { get; set; }
+    public IEnumerable<HealthCheckDetail> Details { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the duration.
@@ -24,5 +24,5 @@ public class HealthCheckResponse
     /// <summary>
     /// Gets or sets the status.
     /// </summary>
-    public string Status { get; set; }
+    public string Status { get; set; } = default!;
 }

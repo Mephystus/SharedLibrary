@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.Exceptions;
-using SharedLibrary.Models.Models.Error;
+using SharedLibrary.Models.Models.Validation;
 
 /// <summary>
 /// Exception filter to intercept <see cref="ValidationException"/>
@@ -44,17 +44,18 @@ public class ValidationExceptionFilter : IAsyncExceptionFilter
         {
             _logger.LogError(validationException, "Validation exception!");
 
-            var errorResponse = new ErrorResponse
+            var response = new ValidationResponse
             {
                 StatusCode = StatusCodes.Status400BadRequest
             };
 
-            errorResponse.Details.Add(new ErrorDetail
+            response.Details.Add(new ValidationDetail
             {
-                Message = validationException.Message
+                Message = validationException.Message,
+                FieldName = validationException.FieldName                
             });
 
-            context.Result = new BadRequestObjectResult(errorResponse);
+            context.Result = new BadRequestObjectResult(response);
             context.ExceptionHandled = true;
         }
 
