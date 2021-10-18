@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SharedLibrary.Models.Models.Error;
+using SharedLibrary.Models.Models.Validation;
 
 /// <summary>
 /// Filter that checks for invalid models. 
@@ -28,9 +29,9 @@ public class ValidationFilter : IAsyncActionFilter
     {
         if (!context.ModelState.IsValid)
         {
-            ErrorResponse errorResponse = GetErrorResponse(context);
+            var response = GetErrorResponse(context);
 
-            context.Result = new BadRequestObjectResult(errorResponse);
+            context.Result = new BadRequestObjectResult(response);
 
             return;
         }
@@ -43,13 +44,13 @@ public class ValidationFilter : IAsyncActionFilter
     /// </summary>
     /// <param name="context">The executing context.</param>
     /// <returns>An instance of <see cref="ErrorResponse"/></returns>
-    private static ErrorResponse GetErrorResponse(ActionExecutingContext context)
+    private static ValidationResponse GetErrorResponse(ActionExecutingContext context)
     {
         var errors = context.ModelState
             .Where(x => x.Value.Errors.Count > 0)
             .ToDictionary(x => x.Key, x => x.Value.Errors.Select(x => x.ErrorMessage)).ToList();
 
-        var errorResponse = new ErrorResponse
+        var response = new ValidationResponse
         {
             StatusCode = StatusCodes.Status400BadRequest
         };
@@ -58,7 +59,7 @@ public class ValidationFilter : IAsyncActionFilter
         {
             foreach (var detail in error.Value)
             {
-                errorResponse.Details.Add(new ErrorDetail
+                response.Details.Add(new ValidationDetail
                 {
                     FieldName = error.Key,
                     Message = detail
@@ -66,7 +67,7 @@ public class ValidationFilter : IAsyncActionFilter
             }
         }
 
-        return errorResponse;
+        return response;
     }
 }
  

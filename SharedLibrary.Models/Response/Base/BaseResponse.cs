@@ -4,22 +4,15 @@
 //  </copyright>
 // -------------------------------------------------------------------------------------
 
-namespace SharedLibrary.Models.Models.Error;
+namespace SharedLibrary.Models.Response.Base;
 
 /// <summary>
-/// Defines the error response.
+/// Defines the base response.
 /// </summary>
-public class ErrorResponse
+public abstract class BaseResponse
 {
-
-    /// <summary>
-    /// Gets or sets the error details.
-    /// </summary>
-    public List<ErrorDetail> Details { get; set; } = new List<ErrorDetail>();
-
     /// <summary>
     /// Gets or sets the status code.
     /// </summary>
     public int StatusCode { get; set; }
 }
- 
