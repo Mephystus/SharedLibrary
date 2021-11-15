@@ -19,10 +19,16 @@ using SharedLibrary.Models.Models.Error;
 /// </summary>
 public class NotFoundExceptionFilter : IAsyncExceptionFilter
 {
+    #region Private Fields
+
     /// <summary>
     /// The logger.
     /// </summary>
     private readonly ILogger<NotFoundExceptionFilter> _logger;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     /// <summary>
     /// Initialises a new instance of the <see cref="NotFoundExceptionFilter" /> class.
@@ -32,6 +38,10 @@ public class NotFoundExceptionFilter : IAsyncExceptionFilter
     {
         _logger = logger;
     }
+
+    #endregion Public Constructors
+
+    #region Public Methods
 
     /// <summary>
     /// Called after an action has thrown an System.Exception.
@@ -49,7 +59,7 @@ public class NotFoundExceptionFilter : IAsyncExceptionFilter
                 StatusCode = StatusCodes.Status404NotFound
             };
 
-            response.Details.Add(new ErrorDetail
+            response.Details.Add(new ErrorResponseDetail
             {
                 Message = notFoundException.Message
             });
@@ -60,4 +70,6 @@ public class NotFoundExceptionFilter : IAsyncExceptionFilter
 
         return Task.CompletedTask;
     }
+
+    #endregion Public Methods
 }

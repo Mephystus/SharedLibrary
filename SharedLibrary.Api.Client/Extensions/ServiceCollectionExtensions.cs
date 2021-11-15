@@ -15,6 +15,34 @@ using SharedLibrary.Api.Client.Configuration;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
+    #region Public Methods
+
+    /// <summary>
+    /// Adds the customer API client into the DI pipeline.
+    /// </summary>
+    /// <param name="services">The service collections.</param>
+    /// <param name="clientSettingsDictionary">The collection of HTTP client settings.</param>
+    /// <param name="key">The key for the client settings dictionary.</param>
+    /// <returns>An instance of <see cref="IServiceCollection"/>.</returns>
+    public static IServiceCollection AddHttpClient<TClient, TImplementation>(
+        this IServiceCollection services,
+        Dictionary<string, HttpClientSettings> clientSettingsDictionary,
+        string key)
+        where TClient : class
+        where TImplementation : class, TClient
+    {
+        if (!clientSettingsDictionary.ContainsKey(key))
+        {
+            throw new ArgumentException($"Could not find the key '{key}' in the dictionary '{nameof(clientSettingsDictionary)}'", key);
+        }
+
+        var clientSettings = clientSettingsDictionary[key];
+
+        services.AddHttpClient<TClient, TImplementation>(clientSettings);
+
+        return services;
+    }
+
     /// <summary>
     /// Adds the HTTP client into the DI pipeline.
     /// </summary>
@@ -46,7 +74,7 @@ public static class ServiceCollectionExtensions
 
         var circuitBreaker = clientSettings.CircuitBreaker;
 
-        if (circuitBreaker?.Enabled ?? false) 
+        if (circuitBreaker?.Enabled ?? false)
         {
             builder.AddTransientHttpErrorPolicy(policy =>
                 policy.CircuitBreakerAsync(
@@ -70,10 +98,12 @@ public static class ServiceCollectionExtensions
         {
             builder.AddPolicyHandler(
                 Policy.TimeoutAsync<HttpResponseMessage>(
-                    timeout.TimeoutInSeconds, 
+                    timeout.TimeoutInSeconds,
                     timeout.TimeoutStrategy));
         }
 
         return builder;
     }
+
+    #endregion Public Methods
 }

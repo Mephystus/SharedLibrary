@@ -19,10 +19,16 @@ using SharedLibrary.Models.Models.Validation;
 /// </summary>
 public class ValidationExceptionFilter : IAsyncExceptionFilter
 {
+    #region Private Fields
+
     /// <summary>
     /// The logger.
     /// </summary>
     private readonly ILogger<ValidationExceptionFilter> _logger;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     /// <summary>
     /// Initialises a new instance of the <see cref="ValidationExceptionFilter" /> class.
@@ -32,6 +38,10 @@ public class ValidationExceptionFilter : IAsyncExceptionFilter
     {
         _logger = logger;
     }
+
+    #endregion Public Constructors
+
+    #region Public Methods
 
     /// <summary>
     /// Called after an action has thrown an System.Exception.
@@ -49,10 +59,10 @@ public class ValidationExceptionFilter : IAsyncExceptionFilter
                 StatusCode = StatusCodes.Status400BadRequest
             };
 
-            response.Details.Add(new ValidationDetail
+            response.Details.Add(new ValidationResponseDetail
             {
                 Message = validationException.Message,
-                FieldName = validationException.FieldName                
+                FieldName = validationException.FieldName
             });
 
             context.Result = new BadRequestObjectResult(response);
@@ -61,4 +71,6 @@ public class ValidationExceptionFilter : IAsyncExceptionFilter
 
         return Task.CompletedTask;
     }
+
+    #endregion Public Methods
 }

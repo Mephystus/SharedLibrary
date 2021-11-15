@@ -15,6 +15,8 @@ using System.Runtime.Serialization;
 [Serializable]
 public class ValidationException : Exception
 {
+    #region Public Constructors
+
     /// <summary>
     /// Initialises a new instance of the <see cref="ValidationException"/> class.
     /// </summary>
@@ -34,6 +36,10 @@ public class ValidationException : Exception
         FieldName = fieldName;
     }
 
+    #endregion Public Constructors
+
+    #region Protected Constructors
+
     /// <summary>
     /// Initialises a new instance of the <see cref="ValidationException"/> class.
     /// </summary>
@@ -46,8 +52,14 @@ public class ValidationException : Exception
         FieldName = fieldName;
     }
 
+    #endregion Protected Constructors
+
+    #region Public Properties
+
     /// <summary>
     /// Gets or sets the field name.
     /// </summary>
     public string FieldName { get; set; } = default!;
+
+    #endregion Public Properties
 }

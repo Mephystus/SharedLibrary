@@ -11,6 +11,8 @@ namespace SharedLibrary.Api.Client.Configuration;
 /// </summary>
 public class HttpClientSettings
 {
+    #region Public Properties
+
     /// <summary>
     /// Gets or sets the base URL.
     /// </summary>
@@ -35,4 +37,6 @@ public class HttpClientSettings
     /// Gets or sets the timeout settings.
     /// </summary>
     public TimeoutSettings Timeout { get; set; } = default!;
+
+    #endregion Public Properties
 }

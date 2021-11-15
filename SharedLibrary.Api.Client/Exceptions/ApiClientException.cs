@@ -10,14 +10,20 @@ using System.Net;
 using System.Text;
 
 /// <summary>
-/// Defines the exception thrown by the API clients. 
+/// Defines the exception thrown by the API clients.
 /// </summary>
 public class ApiClientException : Exception
 {
+    #region Private Fields
+
     /// <summary>
     /// The HTTP response message.
     /// </summary>
     private readonly HttpResponseMessage _httpResponseMessage;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     /// <summary>
     /// Initialises a new instance of the <see cref="ApiClientException"/> class.
@@ -25,7 +31,7 @@ public class ApiClientException : Exception
     /// <param name="message">The exception message.</param>
     /// <param name="httpResponseMessage">The HTTP response message.</param>
     public ApiClientException(
-        string message, 
+        string message,
         HttpResponseMessage httpResponseMessage)
         : this(message, httpResponseMessage, null)
     {
@@ -38,23 +44,31 @@ public class ApiClientException : Exception
     /// <param name="httpResponseMessage">The HTTP response message.</param>
     /// <param name="exception">The inner exception</param>
     public ApiClientException(
-        string message, 
+        string message,
         HttpResponseMessage httpResponseMessage,
         Exception? exception)
-        : base(message, exception) 
+        : base(message, exception)
     {
         _httpResponseMessage = httpResponseMessage ?? throw new ArgumentException(nameof(httpResponseMessage));
     }
+
+    #endregion Public Constructors
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets the HTTP status code.
+    /// </summary>
+    public HttpStatusCode HttpStatusCode => _httpResponseMessage.StatusCode;
 
     /// <summary>
     /// Gets the request Uri.
     /// </summary>
     public Uri? RequestUri => _httpResponseMessage.RequestMessage?.RequestUri;
 
-    /// <summary>
-    /// Gets the HTTP status code.
-    /// </summary>
-    public HttpStatusCode HttpStatusCode => _httpResponseMessage.StatusCode;
+    #endregion Public Properties
+
+    #region Public Methods
 
     /// <summary>
     /// Gets the HTTP response message as a string.
@@ -80,4 +94,6 @@ public class ApiClientException : Exception
 
         return sb.ToString();
     }
+
+    #endregion Public Methods
 }

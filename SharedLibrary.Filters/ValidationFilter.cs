@@ -15,10 +15,12 @@ using SharedLibrary.Models.Models.Error;
 using SharedLibrary.Models.Models.Validation;
 
 /// <summary>
-/// Filter that checks for invalid models. 
+/// Filter that checks for invalid models.
 /// </summary>
 public class ValidationFilter : IAsyncActionFilter
 {
+    #region Public Methods
+
     /// <summary>
     /// Intercepts the execution pipeline to check for validation.
     /// </summary>
@@ -38,6 +40,10 @@ public class ValidationFilter : IAsyncActionFilter
 
         await next();
     }
+
+    #endregion Public Methods
+
+    #region Private Methods
 
     /// <summary>
     /// Gets the <see cref="ErrorResponse"/> from the context.
@@ -59,7 +65,7 @@ public class ValidationFilter : IAsyncActionFilter
         {
             foreach (var detail in error.Value)
             {
-                response.Details.Add(new ValidationDetail
+                response.Details.Add(new ValidationResponseDetail
                 {
                     FieldName = error.Key,
                     Message = detail
@@ -69,5 +75,6 @@ public class ValidationFilter : IAsyncActionFilter
 
         return response;
     }
+
+    #endregion Private Methods
 }
- 

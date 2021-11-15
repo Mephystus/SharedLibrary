@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------
-//  <copyright file="ErrorResponse.cs" company="The AA (Ireland)">
+//  <copyright file="ResponseDetailBase.cs" company="The AA (Ireland)">
 //    Copyright (c) The AA (Ireland). All rights reserved.
 //  </copyright>
 // -------------------------------------------------------------------------------------
@@ -7,12 +7,16 @@
 namespace SharedLibrary.Models.Response.Base;
 
 /// <summary>
-/// Defines the base response.
+/// Defines the base class for the response detail.
 /// </summary>
-public abstract class BaseResponse
+public abstract class ResponseDetailBase
 {
+    #region Public Properties
+
     /// <summary>
-    /// Gets or sets the status code.
+    /// Gets or sets the message.
     /// </summary>
-    public int StatusCode { get; set; }
+    public string Message { get; set; } = default!;
+
+    #endregion Public Properties
 }

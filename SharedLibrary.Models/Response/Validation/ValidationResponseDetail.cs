@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------
-//  <copyright file="ValidationResponse.cs" company="The AA (Ireland)">
+//  <copyright file="ValidationResponseDetail.cs" company="The AA (Ireland)">
 //    Copyright (c) The AA (Ireland). All rights reserved.
 //  </copyright>
 // -------------------------------------------------------------------------------------
@@ -9,16 +9,16 @@ namespace SharedLibrary.Models.Models.Validation;
 using SharedLibrary.Models.Response.Base;
 
 /// <summary>
-/// Defines the validation response.
+/// Defines the validation response detail.
 /// </summary>
-public class ValidationResponse : ResponseBase
+public class ValidationResponseDetail : ResponseDetailBase
 {
     #region Public Properties
 
     /// <summary>
-    /// Gets or sets the error details.
+    /// Gets or sets the field name.
     /// </summary>
-    public List<ValidationResponseDetail> Details { get; set; } = new List<ValidationResponseDetail>();
+    public string FieldName { get; set; } = default!;
 
     #endregion Public Properties
 }

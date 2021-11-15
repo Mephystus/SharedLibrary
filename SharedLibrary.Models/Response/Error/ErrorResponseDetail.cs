@@ -1,21 +1,16 @@
 ﻿// -------------------------------------------------------------------------------------
-//  <copyright file="ValidationDetail.cs" company="The AA (Ireland)">
+//  <copyright file="ErrorResponseDetail.cs" company="The AA (Ireland)">
 //    Copyright (c) The AA (Ireland). All rights reserved.
 //  </copyright>
 // -------------------------------------------------------------------------------------
 
-namespace SharedLibrary.Models.Models.Validation;
+namespace SharedLibrary.Models.Models.Error;
 
 using SharedLibrary.Models.Response.Base;
 
 /// <summary>
-/// Defines the validation detail.
+/// Defines the error response detail.
 /// </summary>
-public class ValidationDetail : BaseDetail
+public class ErrorResponseDetail : ResponseDetailBase
 {
-    /// <summary>
-    /// Gets or sets the field name.
-    /// </summary>
-    public string FieldName { get; set; } = default!;
 }
-
