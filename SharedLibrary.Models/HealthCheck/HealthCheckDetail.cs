@@ -11,6 +11,8 @@ namespace SharedLibrary.Models.HealthCheck;
 /// </summary>
 public class HealthCheckDetail
 {
+    #region Public Properties
+
     /// <summary>
     /// Gets or sets the component.
     /// </summary>
@@ -25,4 +27,6 @@ public class HealthCheckDetail
     /// Gets or sets the status.
     /// </summary>
     public string Status { get; set; } = default!;
+
+    #endregion Public Properties
 }

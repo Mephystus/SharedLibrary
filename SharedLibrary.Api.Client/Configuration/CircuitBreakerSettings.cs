@@ -11,13 +11,15 @@ namespace SharedLibrary.Api.Client.Configuration;
 /// </summary>
 public class CircuitBreakerSettings
 {
+    #region Public Properties
+
     /// <summary>
     /// Gets or sets the break duration in seconds.
     /// </summary>
     public int BreakDurationInSeconds { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicatig whether this is enabled. 
+    /// Gets or sets a value indicatig whether this is enabled.
     /// </summary>
     public bool Enabled { get; set; }
 
@@ -25,4 +27,6 @@ public class CircuitBreakerSettings
     /// Gets or sets the number of events before breaking the circuit.
     /// </summary>
     public int EventsBeforeBreak { get; set; }
+
+    #endregion Public Properties
 }

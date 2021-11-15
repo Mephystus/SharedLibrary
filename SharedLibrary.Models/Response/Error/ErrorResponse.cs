@@ -11,11 +11,14 @@ using SharedLibrary.Models.Response.Base;
 /// <summary>
 /// Defines the error response.
 /// </summary>
-public class ErrorResponse : BaseResponse
+public class ErrorResponse : ResponseBase
 {
+    #region Public Properties
+
     /// <summary>
     /// Gets or sets the error details.
     /// </summary>
-    public List<ErrorDetail> Details { get; set; } = new List<ErrorDetail>();
+    public List<ErrorResponseDetail> Details { get; set; } = new List<ErrorResponseDetail>();
+
+    #endregion Public Properties
 }
- 

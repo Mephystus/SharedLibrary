@@ -16,10 +16,16 @@ using SharedLibrary.Models.Models.Error;
 
 public class UnhandledExceptionFilter : IAsyncExceptionFilter
 {
+    #region Private Fields
+
     /// <summary>
     /// The logger.
     /// </summary>
     private readonly ILogger<UnhandledExceptionFilter> _logger;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     /// <summary>
     /// Initialises a new instance of the <see cref="UnhandledExceptionFilter" /> class.
@@ -29,6 +35,10 @@ public class UnhandledExceptionFilter : IAsyncExceptionFilter
     {
         _logger = logger;
     }
+
+    #endregion Public Constructors
+
+    #region Public Methods
 
     /// <summary>
     /// Called after an action has thrown an System.Exception.
@@ -46,19 +56,21 @@ public class UnhandledExceptionFilter : IAsyncExceptionFilter
                 StatusCode = StatusCodes.Status500InternalServerError
             };
 
-            response.Details.Add(new ErrorDetail
+            response.Details.Add(new ErrorResponseDetail
             {
                 Message = "An error occurred, please try again later."
             });
 
-            context.Result = new ObjectResult(response) 
+            context.Result = new ObjectResult(response)
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
-   
+
             context.ExceptionHandled = true;
         }
 
         return Task.CompletedTask;
     }
+
+    #endregion Public Methods
 }

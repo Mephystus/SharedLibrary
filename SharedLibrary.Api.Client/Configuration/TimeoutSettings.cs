@@ -13,8 +13,10 @@ using Polly.Timeout;
 /// </summary>
 public class TimeoutSettings
 {
+    #region Public Properties
+
     /// <summary>
-    /// Gets or sets a value indicatig whether this is enabled. 
+    /// Gets or sets a value indicatig whether this is enabled.
     /// </summary>
     public bool Enabled { get; set; }
 
@@ -27,4 +29,6 @@ public class TimeoutSettings
     /// Gets or sets the timeout strategy.
     /// </summary>
     public TimeoutStrategy TimeoutStrategy { get; set; }
+
+    #endregion Public Properties
 }

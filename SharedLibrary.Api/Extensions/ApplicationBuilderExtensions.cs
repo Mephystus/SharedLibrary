@@ -20,13 +20,14 @@ using SharedLibrary.Models.HealthCheck;
 /// </summary>
 public static class ApplicationBuilderExtensions
 {
+    #region Public Methods
 
     /// <summary>
     /// Adds a middleware that provides the health check status for the API.
     /// </summary>
     /// <param name="app">The applications builder.</param>
     /// <returns>An instance of <see cref="IApplicationBuilder"/>.</returns>
-    public static IApplicationBuilder UseApiHealthChecks(this IApplicationBuilder app) 
+    public static IApplicationBuilder UseApiHealthChecks(this IApplicationBuilder app)
     {
         app.UseHealthChecks("/health", new HealthCheckOptions
         {
@@ -35,6 +36,10 @@ public static class ApplicationBuilderExtensions
 
         return app;
     }
+
+    #endregion Public Methods
+
+    #region Private Methods
 
     /// <summary>
     /// Writes the health check response into the HTTP context response.
@@ -60,4 +65,6 @@ public static class ApplicationBuilderExtensions
 
         await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
+
+    #endregion Private Methods
 }

@@ -11,13 +11,15 @@ namespace SharedLibrary.Api.Client.Configuration;
 /// </summary>
 public class RetrySettings
 {
+    #region Public Properties
+
     /// <summary>
-    /// Gets or sets a value indicatig whether this is enabled. 
+    /// Gets or sets a value indicatig whether this is enabled.
     /// </summary>
     public bool Enabled { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicatig whether jitter is enabled. 
+    /// Gets or sets a value indicatig whether jitter is enabled.
     /// </summary>
     public bool JitterEnabled { get; set; }
 
@@ -32,7 +34,7 @@ public class RetrySettings
     public int NumberOfRetries { get; set; }
 
     /// <summary>
-    /// Gets or sets backoff mechanism. 
+    /// Gets or sets backoff mechanism.
     /// </summary>
     public RetriesBackoffSettings RetriesBackoff { get; set; }
 
@@ -40,6 +42,10 @@ public class RetrySettings
     /// Gets or sets the sleep duration in miliseconds
     /// </summary>
     public int SleepDurationInMiliseconds { get; set; }
+
+    #endregion Public Properties
+
+    #region Public Methods
 
     /// <summary>
     /// Gets the sleep duration in miliseconds.
@@ -52,7 +58,7 @@ public class RetrySettings
     {
         TimeSpan value = TimeSpan.Zero;
 
-        switch (RetriesBackoff) 
+        switch (RetriesBackoff)
         {
             case RetriesBackoffSettings.Constant:
                 value = TimeSpan.FromMilliseconds(SleepDurationInMiliseconds);
@@ -79,4 +85,6 @@ public class RetrySettings
 
         return value + TimeSpan.FromMilliseconds(jitterer.Next(0, MaxJitterInMiliseconds));
     }
+
+    #endregion Public Methods
 }
