@@ -37,7 +37,7 @@ jobs:
       run: dotnet pack -c 'Release' -p:PackageVersion=1.0.${GITHUB_RUN_NUMBER}
             
     - name: Publish package(s)
-      run: dotnet nuget push **/bin/Release/*.nupkg --skip-duplicate
+      run: dotnet nuget push **/bin/Release/*.nupkg 
  
       
   
