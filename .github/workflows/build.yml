@@ -37,6 +37,6 @@ jobs:
       run: dotnet pack -c 'Release' -p:PackageVersion=1.1.${GITHUB_RUN_NUMBER}
             
     - name: Publish package(s)
-      run: dotnet nuget push --api-key GPR **/bin/Release/*.nupkg
+      run: dotnet nuget push --api-key ${NUGET_AUTH_TOKEN} **/bin/Release/*.nupkg
       
   
