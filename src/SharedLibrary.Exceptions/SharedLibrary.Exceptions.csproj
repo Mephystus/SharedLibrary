@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<VersionPrefix>1.1.4.0</VersionPrefix>
-		<RepositoryUrl>https://nuget.pkg.github.com/mephystus/index.json</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Mephystus/SharedLibrary.git</RepositoryUrl>
 	</PropertyGroup>
 
 </Project>
