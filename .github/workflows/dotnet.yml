@@ -28,7 +28,7 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration 'Release' -p:GeneratePackageOnBuild=false
       
     - name: Create package(s)
       run: dotnet pack -c 'Release' -p:PackageVersion=1.0.${GITHUB_RUN_NUMBER}
