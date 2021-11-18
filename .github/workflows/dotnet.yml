@@ -23,6 +23,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
+        source-url: https://nuget.pkg.github.com/mephystus/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
         
     - name: Restore dependencies
       run: dotnet restore
@@ -32,9 +35,9 @@ jobs:
       
     - name: Create package(s)
       run: dotnet pack -c 'Release' -p:PackageVersion=1.0.${GITHUB_RUN_NUMBER}
-      
+            
     - name: Publish package(s)
-      run: dotnet nuget push --api-key YOUR_GITHUB_PAT --source "github" **/bin/Release/*.nupkg
+      run: dotnet nuget push **/bin/Release/*.nupkg --skip-duplicate
  
       
   
