@@ -1,0 +1,36 @@
+name: Build and Package
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Create package(s)
+      run: dotnet pack -c 'Release' -p:PackageVersion=1.0.${GITHUB_RUN_NUMBER}
+      
+    - name: Publish package(s)
+      run: dotnet nuget push --api-key YOUR_GITHUB_PAT --source "github" **/bin/Release/*.nupkg
+ 
+      
+  
