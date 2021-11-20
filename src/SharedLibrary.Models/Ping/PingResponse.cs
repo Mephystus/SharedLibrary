@@ -9,7 +9,7 @@ namespace SharedLibrary.Models.Ping;
 using System;
 
 /// <summary>
-/// Defines the response class used for the customer ping.
+/// Defines the response class used for the ping.
 /// </summary>
 public class PingResponse
 {

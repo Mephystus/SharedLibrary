@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
     #region Public Methods
 
     /// <summary>
-    /// Adds the customer API client into the DI pipeline.
+    /// Adds the HTTP client into the DI pipeline.
     /// </summary>
     /// <param name="services">The service collections.</param>
     /// <param name="clientSettingsDictionary">The collection of HTTP client settings.</param>
