@@ -36,9 +36,11 @@ jobs:
       run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
       
     - name: Create package(s)
+      if: github.ref == 'refs/heads/main'
       run: dotnet pack -c 'Release'
             
     - name: Publish package(s)
+      if: github.ref == 'refs/heads/main'
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
       
   
