@@ -1,3 +1,3 @@
 # SharedLibrary
 
-- Root
+- Shared library
