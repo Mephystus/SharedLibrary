@@ -26,3 +26,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
+
+    - name: Versioning
+      uses: actions/setup-gitversion@v1.0.0
+      with:
+        gitversion-version: 5.1.1
+        
+    - run: GitVersion
