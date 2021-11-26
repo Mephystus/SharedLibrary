@@ -23,6 +23,12 @@ jobs:
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
 
     steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
       with:
@@ -70,11 +76,6 @@ jobs:
     - name: Display SemVer
       run: |
         echo "SemVer: $GITVERSION_SEMVER"
-
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
