@@ -84,10 +84,12 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./src
       
     - name: Build
       run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
-      
+      working-directory: ./src
+
   deploy:
 
     runs-on: ubuntu-latest
@@ -112,8 +114,9 @@ jobs:
 
     - name: Create package(s)
       run: dotnet pack -c 'Release'
+      working-directory: ./src
             
     - name: Publish package(s)
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
-      
+      working-directory: ./src
   
