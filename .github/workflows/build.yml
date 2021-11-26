@@ -93,7 +93,7 @@ jobs:
     - name: Display Git Version outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version}}"
-        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}"
+        echo "CommitsSinceVersionSource: 123"
 
     - name: Create Release
       id: create_release
