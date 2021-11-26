@@ -18,6 +18,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -31,12 +35,9 @@ jobs:
         
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
+      id: gitversion
       with:
         versionSpec: '5.x'
-      
-    - name: Determine Version
-      id:   gitversion
-      uses: gittools/actions/gitversion/execute@v0.9.7
    
     - name: Display GitVersion outputs
       run: |
