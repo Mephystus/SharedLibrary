@@ -82,7 +82,12 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
+      
   deploy:
 
     runs-on: ubuntu-latest
@@ -105,18 +110,10 @@ jobs:
         tag_name: ${{ needs.build.outputs.Version}}
         release_name: Release ${{ needs.build.outputs.Version}}
 
-    #- name: Restore dependencies
-    #  run: dotnet restore
-      
-    #- name: Build
-    #  run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
-      
-    #- name: Create package(s)
-    #  if: github.ref == 'refs/heads/main'
-    #  run: dotnet pack -c 'Release'
+    - name: Create package(s)
+      run: dotnet pack -c 'Release'
             
-    #- name: Publish package(s)
-    #  if: github.ref == 'refs/heads/main'
-    #  run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
+    - name: Publish package(s)
+      run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
       
   
