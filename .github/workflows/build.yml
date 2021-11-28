@@ -18,10 +18,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    outputs:
-      Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
-      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
-
     steps:
 
     - name: Checkout
@@ -99,7 +95,7 @@ jobs:
       run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
 
     - name: Create package(s)
-      run: dotnet pack -c 'Release'
+      run: dotnet pack -c 'Release' -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
       
     - name: Publish package(s)
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
@@ -111,7 +107,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ needs.build.outputs.Version}}
-        release_name: Release ${{ needs.build.outputs.Version}}
-            
-
+        tag_name: ${{ steps.gitversion.outputs.Version}}
+        release_name: Release ${{ steps.gitversion.outputs.Version}}
