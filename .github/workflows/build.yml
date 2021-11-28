@@ -107,6 +107,11 @@ jobs:
 
     if: github.ref == 'refs/heads/main'
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        
     - name: Display Git Version outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version}}"
