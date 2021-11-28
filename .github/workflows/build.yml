@@ -106,6 +106,10 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version}}"
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}"
 
+    - name: ECHOING
+      run: |
+        echo "PWD: $PWD"
+        
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
