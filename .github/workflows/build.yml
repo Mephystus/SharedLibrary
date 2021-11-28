@@ -1,4 +1,4 @@
-name: Build and Package
+name: Build, Package & Release
 
 on:
   push:
@@ -9,9 +9,9 @@ on:
 env:
   GITHUB_ARTIFACTS_FEED_URL: https://nuget.pkg.github.com/mephystus/index.json
   
-#defaults:
-#  run:
-#    working-directory: ./src
+defaults:
+  run:
+    working-directory: ./src
     
 jobs:
   build:
@@ -94,42 +94,15 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ./src
       
     - name: Build
       run: dotnet build -c 'Release' --no-restore -p:GeneratePackageOnBuild=false
-      working-directory: ./src
-
-  deploy:
-
-    runs-on: ubuntu-latest
-    needs: build
-
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        
-    - name: Display Git Version outputs
-      run: |
-        echo "Version: ${{ needs.build.outputs.Version}}"
-        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}"
-
-    - name: ECHOING
-      run: |
-        echo "PWD: $PWD"
-        echo "LS: $LS"
-        echo "LS workspace: ls ${{ github.workspace }}"
-
-    - name: List files in the repository
-      run: |
-        ls ${{ github.workspace }}
 
     - name: Create package(s)
       run: dotnet pack -c 'Release'
-      working-directory: ./src
+      
+    - name: Publish package(s)
+      run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
 
     - name: Create Release
       id: create_release
@@ -141,7 +114,4 @@ jobs:
         tag_name: ${{ needs.build.outputs.Version}}
         release_name: Release ${{ needs.build.outputs.Version}}
             
-    - name: Publish package(s)
-      run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
-      working-directory: ./src
-  
+
