@@ -34,6 +34,11 @@ jobs:
         echo "PWD: $PWD"
         echo "LS: $LS"
         echo "LS workspace: ls ${{ github.workspace }}"
+        
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+        ls ${{ $PWD }}
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
@@ -113,6 +118,11 @@ jobs:
         echo "PWD: $PWD"
         echo "LS: $LS"
         echo "LS workspace: ls ${{ github.workspace }}"
+
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+        ls ${{ $PWD }}
 
     - name: Create package(s)
       run: dotnet pack -c 'Release'
