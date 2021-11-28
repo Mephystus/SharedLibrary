@@ -32,6 +32,8 @@ jobs:
     - name: ECHOING
       run: |
         echo "PWD: $PWD"
+        echo "LS: $LS"
+        echo "LS workspace: ls ${{ github.workspace }}"
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
@@ -109,7 +111,13 @@ jobs:
     - name: ECHOING
       run: |
         echo "PWD: $PWD"
-        
+        echo "LS: $LS"
+        echo "LS workspace: ls ${{ github.workspace }}"
+
+    - name: Create package(s)
+      run: dotnet pack -c 'Release'
+      working-directory: ./src
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -119,10 +127,6 @@ jobs:
       with:
         tag_name: ${{ needs.build.outputs.Version}}
         release_name: Release ${{ needs.build.outputs.Version}}
-
-    - name: Create package(s)
-      run: dotnet pack -c 'Release'
-      working-directory: ./src
             
     - name: Publish package(s)
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.nupkg
