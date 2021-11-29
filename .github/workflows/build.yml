@@ -2,9 +2,7 @@ name: Build, Package & Release
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ main, 'feature/*', 'hotfix/*' ]
 
 env:
   GITHUB_ARTIFACTS_FEED_URL: https://nuget.pkg.github.com/mephystus/index.json
