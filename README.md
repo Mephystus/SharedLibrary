@@ -2,4 +2,4 @@
 
 # SharedLibrary
 
-- Shared library...
+- Shared library
