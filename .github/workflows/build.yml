@@ -6,7 +6,7 @@ on:
 
 env:
   GITHUB_ARTIFACTS_FEED_URL: https://nuget.pkg.github.com/mephystus/index.json
-  AZURE_ARTIFACTS_FEED_URL: https://nuget.co
+  AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/ricardobicho/_packaging/sharedfeed/nuget/v3/index.json
   CONFIGURATION: 'Release'
   
 defaults:
