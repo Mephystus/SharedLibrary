@@ -64,5 +64,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.gitversion.outputs.nuGetVersionV2}}
+        tag_name: v${{ steps.gitversion.outputs.nuGetVersionV2}}
         release_name: Release ${{ steps.gitversion.outputs.nuGetVersionV2}}
