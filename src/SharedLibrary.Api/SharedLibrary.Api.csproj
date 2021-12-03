@@ -12,7 +12,7 @@
 	<Description>Provides shared features for Web APIs projects.</Description>
 	<Copyright>Copyright © The AA (Ireland) - 2022</Copyright>
 	<PackageProjectUrl>https://github.com/Mephystus/SharedLibrary/packages/1102098</PackageProjectUrl>
-	<PackageIcon>nuget-piano-icon.jpg</PackageIcon>
+	<PackageIcon>images\nuget-piano-icon.jpg</PackageIcon>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<IncludeSymbols>true</IncludeSymbols>
@@ -30,7 +30,7 @@
   <ItemGroup>
     <None Include="..\..\nuget\nuget-piano-icon.jpg">
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <PackagePath>\images</PackagePath>
     </None>
   </ItemGroup>
 
