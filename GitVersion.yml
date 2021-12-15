@@ -1,1 +1,51 @@
-next-version: 2.0.0
+next-version: 2.1.0
+
+branches:
+  main:
+    regex: ^master$|^main$
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    source-branches: ['master', 'main', 'sprint']
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: true
+    pre-release-weight: 55000
+  sprint:
+    regex: ^sprint?[/-]
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Inherit
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    source-branches: []
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: true
+    pre-release-weight: 55000
+  feature:
+    regex: ^feature(s)?[/-]
+    mode: ContinuousDelivery
+    tag: pre-release
+    increment: Inherit
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+    source-branches: [ 'master', 'main', 'sprint', 'hotfix' ]
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: false
+    pre-release-weight: 30000
+  hotfix:
+    regex: ^hotfix(es)?[/-]
+    mode: ContinuousDelivery
+    tag: beta
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+    source-branches: [ 'master', 'main' ]
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: false
+    pre-release-weight: 30000
