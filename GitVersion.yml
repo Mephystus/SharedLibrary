@@ -8,7 +8,7 @@ branches:
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    source-branches: ['master', 'main', 'sprint']
+    source-branches: []
     tracks-release-branches: false
     is-release-branch: false
     is-mainline: true
@@ -17,10 +17,10 @@ branches:
     regex: ^sprint?[/-]
     mode: ContinuousDelivery
     tag: ''
-    increment: Inherit
+    increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    source-branches: []
+    source-branches: ['master', 'main']
     tracks-release-branches: false
     is-release-branch: false
     is-mainline: true
