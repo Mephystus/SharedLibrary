@@ -51,6 +51,9 @@ jobs:
     - name: Create package(s)
       run: dotnet pack -c ${{ env.CONFIGURATION }} -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
       
+    - name: Echo
+      run: echo ${{ github.ref }}
+
     - name: Publish package(s) - GitHub
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.*nupkg
 
@@ -60,7 +63,7 @@ jobs:
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
-      if: github.ref == 'refs/heads/main' && steps.gitversion.outputs.CommitsSinceVersionSource > 0
+      if: (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/sprint')) && steps.gitversion.outputs.CommitsSinceVersionSource > 0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
