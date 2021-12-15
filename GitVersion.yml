@@ -9,8 +9,6 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     source-branches: []
-    tracks-release-branches: false
-    is-release-branch: false
     is-mainline: true
     pre-release-weight: 55000
   sprint:
@@ -21,8 +19,6 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     source-branches: ['master', 'main']
-    tracks-release-branches: false
-    is-release-branch: false
     is-mainline: true
     pre-release-weight: 55000
   feature:
@@ -33,8 +29,6 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     source-branches: [ 'master', 'main', 'sprint', 'hotfix' ]
-    tracks-release-branches: false
-    is-release-branch: false
     is-mainline: false
     pre-release-weight: 30000
   hotfix:
@@ -45,7 +39,5 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     source-branches: [ 'master', 'main' ]
-    tracks-release-branches: false
-    is-release-branch: false
     is-mainline: false
     pre-release-weight: 30000
