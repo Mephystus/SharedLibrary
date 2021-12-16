@@ -2,12 +2,13 @@ name: Build, Package & Release
 
 on:
   push:
-    branches: [ main, 'sprint/*', 'hotfix/*' ]
+    branches: [ main, 'sprint/*', 'hotfix/*', 'feature/*' ]
 
 env:
   GITHUB_ARTIFACTS_FEED_URL: https://nuget.pkg.github.com/mephystus/index.json
   AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/ricardobicho/_packaging/sharefeed/nuget/v3/index.json
   CONFIGURATION: 'Release'
+  continue_condition: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/sprint') }}
   
 defaults:
   run:
@@ -49,21 +50,27 @@ jobs:
       run: dotnet build -c ${{ env.CONFIGURATION }} --no-restore -p:GeneratePackageOnBuild=false
 
     - name: Create package(s)
+      if: ${{ env.continue_condition }}
       run: dotnet pack -c ${{ env.CONFIGURATION }} -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
       
     - name: Echo
       run: echo ${{ github.ref }}
 
+    - name: Condition
+      run: echo ${{ env.continue_condition }}
+
     - name: Publish package(s) - GitHub
+      if: ${{ env.continue_condition }}
       run: dotnet nuget push --source ${{ env.GITHUB_ARTIFACTS_FEED_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} **/bin/Release/*.*nupkg
 
     - name: Publish package(s) - Azure DevOps
+      if: ${{ env.continue_condition }}
       run: dotnet nuget push --api-key AzureArtifacts **/bin/Release/*.*nupkg
 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
-      if: (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/sprint')) && steps.gitversion.outputs.CommitsSinceVersionSource > 0
+      if: ${{ env.continue_condition }} && steps.gitversion.outputs.CommitsSinceVersionSource > 0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
