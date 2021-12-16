@@ -68,7 +68,7 @@ jobs:
       run: dotnet nuget push --api-key AzureArtifacts **/bin/Release/*.*nupkg
 
     - name: Final Test1
-      if: ${{ env.continue_condition == 'true' }} && steps.gitversion.outputs.CommitsSinceVersionSource > 0
+      if: ${{ env.continue_condition == 'true' }} 
       run: echo Done
 
     - name: Final Test2
