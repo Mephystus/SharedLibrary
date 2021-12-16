@@ -67,12 +67,20 @@ jobs:
       if: ${{ env.continue_condition == 'true' }}
       run: dotnet nuget push --api-key AzureArtifacts **/bin/Release/*.*nupkg
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Final Test1
       if: ${{ env.continue_condition == 'true' }} && steps.gitversion.outputs.CommitsSinceVersionSource > 0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v${{ steps.gitversion.outputs.nuGetVersionV2}}
-        release_name: Release ${{ steps.gitversion.outputs.nuGetVersionV2}}
+      run: echo Done
+
+    - name: Final Test2
+      if: (${{ env.continue_condition == 'true' }} && steps.gitversion.outputs.CommitsSinceVersionSource > 0)
+      run: echo Done
+
+    #- name: Create Release
+    #  id: create_release
+    #  uses: actions/create-release@v1
+    #  if: ${{ env.continue_condition == 'true' }} && steps.gitversion.outputs.CommitsSinceVersionSource > 0
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #  with:
+    #    tag_name: v${{ steps.gitversion.outputs.nuGetVersionV2}}
+    #    release_name: Release ${{ steps.gitversion.outputs.nuGetVersionV2}}
